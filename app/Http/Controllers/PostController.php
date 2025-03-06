@@ -44,4 +44,10 @@ class PostController extends Controller
 
         return to_route('posts.index');
     }
+
+    public function edit($postId)
+    {
+
+        return view("posts.edit");
+    }
 }
