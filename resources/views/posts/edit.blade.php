@@ -5,8 +5,9 @@
 @section('content')
 
 <!-- method="GET" action="{{route('posts.store')}}" -->
-<form>
+<form method="POST" action="{{route('posts.update', 1)}}">
     @csrf
+    @method('PUT')
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Title</label>
         <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
@@ -24,7 +25,7 @@
             <option value="2">Person2</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Update</button>
+    <button class="btn btn-primary">Update</button>
 </form>
 
 

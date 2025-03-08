@@ -50,4 +50,19 @@ class PostController extends Controller
 
         return view("posts.edit");
     }
+    public function update($postId)
+    {
+
+        $title = request()->title;
+        $description = request()->description;
+        $postCreator = request()->post_creator;
+
+        // dd($title, $description, $postCreator);
+
+        return to_route('posts.show', 1);
+    }
+    public function destroy()
+    {
+        return to_route('posts.index');
+    }
 }
