@@ -2,30 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $allPosts = [
-            ['id' => 1, 'title' => 'Php', 'posted_by' => 'Jihad', 'created_at' => '2022-10-10 09:00:00'],
-            ['id' => 2, 'title' => 'HTML', 'posted_by' => 'Jihad1', 'created_at' => '2024-01-08 07:00:00'],
-            ['id' => 3, 'title' => 'CSS', 'posted_by' => 'Jihad2', 'created_at' => '2025-12-10 05:00:00'],
-            ['id' => 4, 'title' => 'JS', 'posted_by' => 'Jihad3', 'created_at' => '2022-10-11 09:45:00']
-        ];
-        return view('posts.index', ['posts' => $allPosts]);
+        $postsFromDB = Post::all();
+
+        // dd($postsFromDB);
+        return view('posts.index', ['posts' => $postsFromDB]);
     }
     public function show($postId)
     {
-        $singlePost = [
-            'id' => 1,
-            'title' => 'Php',
-            'description' => 'this is a description',
-            'posted_by' => 'Jihad',
-            'created_at' => '2022-10-10 09:00:00'
-        ];
-        return view("posts.show", ['post' => $singlePost]);
+        $singlePostFromDB = Post::find($postId);
+        //$singlePostFromDB = Post::findOrFail($postId);  //if singlePostFromDB is null 404 not found is appear
+
+        if (is_null($singlePostFromDB)) {
+            return to_route('posts.index');
+        }
+
+        // $singlePostFromDB = Post::where('id', $postId)->first();
+        // $singlePostFromDB = Post::where('id', $postId)->get();
+
+        // dd($singlePostFromDB);
+        return view("posts.show", ['post' => $singlePostFromDB]);
     }
     public function create()
     {
