@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -31,11 +32,13 @@ class PostController extends Controller
     }
     public function create()
     {
+        $users = User::all();
 
-        return view("posts.create");
+        return view("posts.create", ['users' => $users]);
     }
     public function store()
     {
+        //1- get the user data
         $data = request()->all();
 
         $title = request()->title;
@@ -44,6 +47,23 @@ class PostController extends Controller
         // dd($title, $description, $postCreator);
         // dd($data);
 
+
+        //2- store the submitted data in database
+
+        //first way to store data in DB
+        // $post = new Post;
+
+        // $post->title = $title;
+        // $post->description = $description;
+
+        // $post->save(); //insert into posts table
+
+        //Second way to store data in DB
+        Post::create([
+            'title' => $title,
+            'description' => $description,
+        ]);
+        //3- redirection to posts.index
         return to_route('posts.index');
     }
 
