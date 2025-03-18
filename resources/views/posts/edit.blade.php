@@ -5,24 +5,25 @@
 @section('content')
 
 <!-- method="GET" action="{{route('posts.store')}}" -->
-<form method="POST" action="{{route('posts.update', 1)}}">
+<form method="POST" action="{{route('posts.update', $post->id)}}">
     @csrf
     @method('PUT')
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Title</label>
-        <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+        <input name="title" type="text" value="{{$post -> title}}" class="form-control" id="exampleFormControlInput1" placeholder="">
     </div>
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$post -> description}}"</textarea>
     </div>
 
 
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Post Creator</label>
         <select name="post_creator" class="form-control">
-            <option value="1">Person1</option>
-            <option value="2">Person2</option>
+            @foreach($users as $user)
+            <option value="{{$user -> id}}">{{$user -> name}}</option>
+            @endforeach
         </select>
     </div>
     <button class="btn btn-primary">Update</button>

@@ -67,10 +67,10 @@ class PostController extends Controller
         return to_route('posts.index');
     }
 
-    public function edit($postId)
+    public function edit(Post $post)
     {
-
-        return view("posts.edit");
+        $users = User::all();
+        return view("posts.edit", ['users' => $users], ['post' => $post]);
     }
     public function update($postId)
     {
@@ -81,10 +81,21 @@ class PostController extends Controller
 
         // dd($title, $description, $postCreator);
 
-        return to_route('posts.show', 1);
+        $singlePostFromDB = Post::find($postId);
+        $singlePostFromDB->update([
+            'title' => $title,
+            'description' => $description,
+        ]);
+
+        return to_route('posts.show', $postId);
     }
-    public function destroy()
+    public function destroy($postId)
     {
+        $post = Post::find($postId);
+
+        $post->delete();
+
+
         return to_route('posts.index');
     }
 }

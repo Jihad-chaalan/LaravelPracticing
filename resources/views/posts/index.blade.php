@@ -22,7 +22,7 @@
     <tbody>
         @foreach($posts as $post)
         <tr>
-            <th scope="row">{{$post->id}}</th>
+            <th scope="row">{{ $loop->index + 1}} </th> <!--{{$post->id}} -->
             <td>{{$post->title}}</td>
             <td>{{$post->posted_by}}</td>
             <td>{{$post['created_at']}}</td>
@@ -32,7 +32,7 @@
                 <form style="display: inline;" method="POST" action="{{route('posts.destroy', $post['id'])}}">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
                 </form>
             </td>
         </tr>
