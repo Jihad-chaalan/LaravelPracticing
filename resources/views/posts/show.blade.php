@@ -12,12 +12,11 @@
     </div>
 </div>
 <div class="card mt-4">
-    @dd($post -> user )
     <h5 class="card-header">Post Creator Info</h5>
     <div class="card-body">
         <h5 class="card-title">Name: {{$post-> user -> name}}</h5>
         <p class="card-text">Email: {{$post-> user -> email}}</p>
-        <p class="card-text">Created At: {{$post -> user -> created_at}}</p>
+        <p class="card-text">Created At: {{$post -> created_at}}</p>
     </div>
 </div>
 

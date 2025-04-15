@@ -38,6 +38,13 @@ class PostController extends Controller
     }
     public function store()
     {
+        //validate the data
+        request()->validate([
+            'title' => ['required', 'min:3'],
+            'description' => ['required', 'min:5'],
+            'post_creator' => ['required', 'exists:users,id']
+        ]);
+
         //1- get the user data
         $data = request()->all();
 
